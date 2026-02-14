@@ -247,7 +247,11 @@ ggplot(df, aes(x = GPA_f, fill = Gender)) +
 ```
 :::
 
+::: callout-tip
+## Observation
+
 The GPA distributions for male and female students show substantial overlap across all performance categories. Both groups are predominantly concentrated in the “Fair” and “Good” categories, with nearly identical proportions in the central “Fair” category. Female students display a slightly higher proportion in the “Excellent” category and a marginally lower proportion in the lower GPA categories compared to male students. However, the magnitude of these differences appears modest, and no strong structural separation between gender groups is visually evident. The parallel distribution patterns suggest that gender does not meaningfully differentiate academic outcomes in this sample. Overall, while minor proportional shifts exist, the demographic effect of gender on GPA composition appears limited relative to other behavioral or institutional factors examined later in the analysis.
+:::
 
 ## 4.2 Family Economic Status and Academic Performance
 
@@ -280,7 +284,11 @@ ggplot(df, aes(x = GPA_f, fill = factor(Poor_Stu))) +
 ```
 :::
 
+::: callout-tip
+## Observation
+
 Students from non-poor households demonstrate a moderately higher concentration in the “Good” and “Excellent” GPA categories compared to those from poor households. Conversely, students from poor households show a noticeably higher proportion in the “Fair” category, indicating a slight downward shift in performance distribution. Although the differences are visually detectable, the overall distributional overlap remains considerable across most GPA levels. The majority of students in both groups fall within the central performance categories, suggesting that economic background influences GPA composition only to a limited extent. While the non-poor group appears to have a modest advantage in higher performance categories, the magnitude of separation is not large. Compared with behavioral factors such as study time or adaptation measures examined later, economic status appears to exert a relatively weaker structural association with academic performance outcomes.
+:::
 
 # 5. Behavioral Factors
 
@@ -329,7 +337,11 @@ ggplot(df, aes(y = Time_Studying, fill = GPA_f)) +
 ```
 :::
 
+::: callout-tip
+## Observation
+
 Students who reported longer daily study durations exhibit a clearer upward shift in GPA composition compared to those studying fewer hours per day. Specifically, the proportion of students in the “Good” and “Excellent” categories increases progressively with higher study-time categories, while the share of lower performance categories declines. This pattern appears directionally consistent and more structurally distinct than demographic variables previously examined. Although overlap remains across groups, the monotonic trend suggests a meaningful behavioral association between study engagement and academic outcomes. The visual gradient across study-time levels indicates that increased study duration corresponds with improved GPA distribution. Compared to gender and economic background, study time demonstrates a more coherent and interpretable pattern of performance differentiation, highlighting behavioral engagement as a relatively stronger correlate of academic achievement within this sample.
+:::
 
 ## 5.2 Social Media Usage and GPA
 
@@ -376,7 +388,11 @@ ggplot(df, aes(x = Time_SocicalMedia, y = GPA_num, fill = Time_SocicalMedia)) +
 ```
 :::
 
+::: callout-tip
+## Observation
+
 The GPA distributions across social media usage levels reveal minimal structural differentiation. While slight proportional fluctuations appear across categories, no clear monotonic pattern emerges between time spent on social media and academic performance. The majority of students in all usage groups remain concentrated within the “Fair” and “Good” GPA categories, and differences in the “Excellent” and lower categories are modest. The absence of a consistent directional gradient suggests that daily social media time alone does not meaningfully distinguish academic outcomes within this dataset. Although small distributional shifts may be present, the overall overlap across usage groups remains substantial. Relative to study time, which demonstrated a clearer association pattern, social media usage appears to exhibit a weaker and less structurally coherent relationship with GPA composition.
+:::
 
 # 6. Institutional Factors
 
@@ -413,7 +429,11 @@ ggplot(df, aes(x = Adapt_Learning_Uni, y = GPA_num)) +
 ```
 :::
 
+::: callout-tip
+## Observation
+
 A clear directional pattern is observed across adaptation levels. Students reporting higher levels of adaptation demonstrate progressively greater proportions in the “Good” and “Excellent” GPA categories, alongside reduced representation in lower performance categories. Unlike demographic variables, which showed minimal structural separation, adaptation reveals a more consistent upward gradient in academic performance distribution. Although overlap remains across groups, the shift in composition appears more pronounced and visually coherent than that observed for social media usage or economic status. The monotonic trend suggests that students who feel better adjusted to the university learning environment tend to cluster more strongly in higher GPA categories. While the magnitude of separation is not extreme, adaptation emerges as one of the more structurally differentiated institutional factors examined in this analysis.
+:::
 
 ## 6.2 Lecturer Quality and GPA
 
@@ -452,13 +472,15 @@ ggbetweenstats(
 ```
 :::
 
-Students who rated lecturer quality more positively display a modest increase in the proportion of “Good” and “Excellent” GPA categories relative to those reporting lower quality perceptions. However, substantial overlap remains across groups, particularly within the dominant “Fair” category. Although an upward trend is observable, the gradient appears less pronounced than that observed for adaptation or study time. The distributional shifts suggest a positive but moderate association between perceived instructional quality and academic performance. Differences between adjacent quality levels are relatively small, indicating limited structural separation. Compared with behavioral engagement and learning adaptation, lecturer quality appears to exert a weaker influence on GPA composition, though it remains directionally consistent with improved academic outcomes.
+::: callout-tip
+## Observation
+
+Students who rated lecturer quality more positively display a modest increase in the proportion of “Good” and “Excellent” GPA categories relative to those reporting lower quality perceptions. However, substantial overlap remains across groups, particularly within the dominant “Fair” category. Although an upward trend is observable, the gradient appears less pronounced than that observed for adaptation or study time. The distributional shifts suggest a positive but moderate association between perceived instructional quality and academic performance. Differences between adjacent quality levels are relatively small, indicating limited structural separation.Although statistically significant (χ² = 25.90, p \< .001), the effect size (ε² = 0.01) indicates a small practical impact. Compared with behavioral engagement and learning adaptation, lecturer quality appears to exert a weaker influence on GPA composition, though it remains directionally consistent with improved academic outcomes.
+:::
 
 ## 6.3 Lecturer Support and GPA
 
-To further explore lecturer-related factors, we analyze GPA distribution across levels of perceived lecturer support. Lecturer support is treated as an ordered Likert-scale variable.
-
-We use a boxplot with non-parametric comparison to examine differences in GPA across support levels. This method allows evaluation of median shifts while accommodating the ordinal nature of the data.
+To further examine lecturer-related influences, we analyze GPA distribution across levels of perceived lecturer support. Lecturer support is treated as an ordered Likert-scale variable, and GPA remains an ordered categorical outcome. A boxplot with non-parametric comparison is used to assess median shifts while respecting the ordinal nature of the data.
 
 ::: panel-tabset
 ### Plot
@@ -493,7 +515,15 @@ ggbetweenstats(
 ```
 :::
 
-The analysis of GPA across levels of perceived lecturer support reveals a similar pattern to lecturer quality, with modest upward shifts in median GPA as support levels increase. Students who report higher levels of lecturer support tend to demonstrate slightly more favorable academic distributions, particularly within the upper GPA categories. However, the interquartile ranges continue to overlap across groups, indicating that differences, while present, are not substantial in magnitude. The visual pattern suggests a positive but moderate association between perceived support and academic outcomes. The limited separation between groups implies that lecturer support likely interacts with additional factors—such as study behavior or personal motivation—in shaping overall performance. Therefore, while lecturer support appears to contribute to academic achievement, it should be interpreted as one of several interconnected influences. Similar to lecturer quality, the effect size remains small, indicating that the association, although statistically significant, explains only a limited proportion of variation in GPA.
+::: callout-tip
+## Observation
+
+The distribution of GPA across support levels reveals a modest upward shift in central tendency as perceived support increases. Students reporting higher levels of lecturer support tend to exhibit slightly higher median GPA values and a marginally greater concentration within the upper performance categories. However, the interquartile ranges across support groups remain substantially overlapping, indicating limited structural separation.
+
+Although the Kruskal–Wallis test suggests statistical significance, the observed effect size is small, implying that the magnitude of differentiation is modest in practical terms. Compared with learning adaptation and study time—both of which demonstrated clearer monotonic gradients—the association between lecturer support and GPA appears weaker and less structurally distinct.
+:::
+
+These findings suggest that while perceived lecturer support aligns directionally with improved academic outcomes, it likely operates in conjunction with other behavioral and institutional factors rather than serving as a primary differentiating mechanism. The overall pattern indicates a positive but limited association within the broader network of influences on academic performance.
 
 # 7. Summary
 
@@ -501,17 +531,17 @@ The analysis of GPA across levels of perceived lecturer support reveals a simila
 
 This visually driven survey analysis reveals several consistent patterns regarding factors associated with categorized academic performance.
 
--   First, demographic characteristics such as gender exhibit minimal structural differentiation in GPA distribution. Although small proportional differences are observable, substantial overlap persists across all performance categories, suggesting limited demographic influence.
+Gender shows minimal differentiation in GPA composition, with substantial overlap across all performance categories and no clear structural separation.
 
--   Second, family economic status shows modest association with GPA composition. Students from non-poor households demonstrate slightly higher representation in upper GPA categories; however, distributional overlap remains considerable, indicating only moderate differentiation.
+Family economic status demonstrates modest association, as non-poor students exhibit slightly higher representation in upper GPA categories, though distributional overlap remains considerable.
 
--   Third, among behavioral factors, daily study time demonstrates the clearest monotonic pattern. Higher study durations correspond with progressively stronger concentration in “Good” and “Excellent” GPA categories, indicating a relatively stronger structural association compared to demographic variables.
+Daily study time displays the clearest monotonic gradient, with longer study duration corresponding to progressively stronger concentration in higher GPA categories.
 
--   Fourth, social media usage exhibits minimal and inconsistent distributional shifts, suggesting weak differentiation in academic outcomes.
+Social media usage shows weak and inconsistent differentiation, with no clear directional pattern across usage levels.
 
--   Fifth, among institutional factors, adaptation to university learning demonstrates a clearer upward gradient in GPA composition. Students reporting stronger adaptation cluster more frequently in higher performance categories.
+Learning adaptation emerges as the strongest institutional factor, exhibiting a consistent upward shift in GPA composition across adaptation levels.
 
--   Finally, perceived lecturer quality and lecturer support show positive but modest associations, with observable yet limited distributional separation.
+Lecturer quality and lecturer support demonstrate positive but small associations, with statistically significant yet practically limited structural differentiation.
 
 Overall, behavioral engagement and learning adaptation appear to demonstrate more structurally coherent relationships with GPA distribution than demographic characteristics or isolated institutional perceptions.
 
@@ -534,3 +564,9 @@ Second, GPA was analyzed as an ordered categorical variable. While this preserve
 Third, group sizes across certain response categories are imbalanced, which may affect the stability of proportional comparisons.
 
 Finally, the analysis is exploratory and visually driven. Although it identifies structural patterns, it does not control for confounding variables or model potential interactions among demographic, behavioral, and institutional factors.
+
+# 8 Reference 
+
+https://data.mendeley.com/datasets/23ppcdbmhc/1
+
+https://www.sciencedirect.com/science/article/pii/S2352340925001702
