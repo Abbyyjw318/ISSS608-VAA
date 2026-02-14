@@ -148,23 +148,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Hands-on Exercise 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05a.html">
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05a.html">
  <span class="dropdown-text">Hands-on Exercise 5a</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05b.html">
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05b.html">
  <span class="dropdown-text">Hands-on Exercise 5b</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05c.html">
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05c.html">
  <span class="dropdown-text">Hands-on Exercise 5c</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05d.html">
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05d.html">
  <span class="dropdown-text">Hands-on Exercise 5d</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05e.html">
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05e.html">
  <span class="dropdown-text">Hands-on Exercise 5e</span></a>
   </li>  
     </ul>
@@ -201,8 +201,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">1.1 Background</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">1.2 Objectives</a></li>
+  </ul></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -232,13 +243,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>install R</p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">1.1 Background</h2>
+<p>This study analyzes survey data collected from students at the University of Education, Vietnam National University, Hanoi. The dataset aims to explore factors potentially associated with students’ academic performance, measured using categorized GPA levels.</p>
+<p>Understanding the relationship between academic outcomes and factors such as study behavior, institutional support, and perceived lecturer quality is important for identifying patterns that may contribute to student success.</p>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">1.2 Objectives</h2>
+<p>This analysis aims to:</p>
+<ul>
+<li><p>Examine the overall distribution of GPA among students</p></li>
+<li><p>Explore whether demographic characteristics influence GPA</p></li>
+<li><p>Investigate behavioral factors (study time, social media usage)</p></li>
+<li><p>Analyze perceived institutional and lecturer-related factors</p></li>
+<li><p>Identify which factors show stronger associations with academic performance</p></li>
+</ul>
+</section>
+</section>
+<section id="getting-started" class="level1">
+<h1>Getting Started</h1>
+<p>Load Packages<br>
+We load the following R packages using the pacman::p_load() function to support data import, wrangling, visualisation, and statistical graphics: tidyverse: Core collection of packages for data wrangling (dplyr), data import (readr), and data visualisation (ggplot2). scales: Provides scaling functions (e.g., percentage labels) used in ggplot2 visualisations. ggthemes: Offers additional themes to improve plot aesthetics beyond default ggplot2 themes. ggridges: Used to create ridgeline density plots for comparing GPA distributions across ordinal groups. ggdist: Provides visualisations of distributions and uncertainty (e.g., median + interval plots using stat_pointinterval()). ggstatsplot: Produces enhanced statistical visualisations such as ggbetweenstats(), integrating non-parametric tests and effect sizes directly into the plots. colorspace: Supports colour palettes and colour manipulation utilities (useful when fine-tuning plot appearance).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(plotly, ggtern, tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggdist, ggridges, ggthemes,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               colorspace, tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, ggdist, ggridges, ggthemes, scales, ggstatsplot, colorspace)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>import data</p>
+<p>Import data</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Database_paper <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Database_paper.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -251,6 +282,15 @@ dbl (22): Year, Gender, Policy_Stu, Minority_Stu, Poor_Stu, Father_Edu, Moth...
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
+<p>The dataset contains 2,170 survey responses collected in 2023.<br>
+</p>
+<p>Variables include:</p>
+<ul>
+<li><p>Demographic factors (Gender, Year, Family background)</p>
+<p>Behavioral factors (Study time, Social media time, Time with friends)</p>
+<p>Institutional perception (Support, Facilities, Lecturer quality)</p>
+<p>Academic outcome (GPA categorized into five levels)</p></li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
@@ -271,6 +311,10 @@ dbl (22): Year, Gender, Policy_Stu, Minority_Stu, Poor_Stu, Father_Edu, Moth...
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year   =</span> <span class="fu">factor</span>(Year, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>All ordinal variables were converted into ordered factors.</p>
+<p>Although the primary objective of this study is exploratory, non-parametric group comparisons (Kruskal–Wallis tests) are conducted where appropriate to assess whether observed differences across ordinal categories are statistically meaningful. Given that GPA and most explanatory variables are measured on ordinal scales, rank-based methods are preferred over parametric alternatives. Statistical results are interpreted alongside effect sizes to emphasize practical rather than merely statistical significance.</p>
+<p>GPA was treated as an ordered categorical variable throughout the analysis. Numeric coding was used solely to facilitate rank-based non-parametric comparison and visualization, without assuming equal interval spacing between categories.</p>
+<p>Overall GPA Distribution To understand the general academic performance of students, we first examine the overall distribution of GPA categories. GPA is treated as an ordered categorical variable ranging from “Poor” to “Excellent.” Since the objective is exploratory rather than inferential, we focus on visualizing how GPA values are distributed across the student population. We use a bar chart to display the proportion of students in each GPA category. This allows clear comparison of relative frequencies and provides an intuitive overview of central tendency and dispersion. Percentages are used instead of counts to improve interpretability.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> GPA_f)) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop), <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
@@ -287,6 +331,9 @@ dbl (22): Year, Gender, Policy_Stu, Minority_Stu, Poor_Stu, Father_Edu, Moth...
 </div>
 </div>
 </div>
+<p>The overall distribution of GPA categories reveals that the majority of students are concentrated in the “Fair” and “Good” performance levels, with noticeably fewer students in the “Poor” and “Excellent” categories. This indicates that academic outcomes within the sample are moderately centralized rather than highly polarized. The relatively small proportion of students at the extremes suggests limited academic disparity at both ends of the performance spectrum. The clustering around mid-level categories may reflect common institutional grading structures or similar academic engagement levels among students. Establishing this baseline distribution is important because it provides a reference framework for interpreting subgroup differences in subsequent analyses. Without understanding the central tendency and spread of GPA levels, it would be difficult to meaningfully evaluate whether behavioral or institutional factors correspond with substantial performance shifts.</p>
+<p>Demographic Differences To examine whether demographic characteristics influence academic outcomes, we compare GPA distribution across gender groups. Gender is treated as a categorical variable with two levels: Male and Female. GPA remains an ordered categorical variable.</p>
+<p>We use a grouped bar chart showing the percentage distribution of GPA within each gender. Displaying proportions rather than raw counts allows fair comparison across groups regardless of group size. The side-by-side bars facilitate visual comparison of performance patterns.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> GPA_f, <span class="at">fill =</span> Gender)) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop), <span class="at">group =</span> Gender),</span>
@@ -304,15 +351,15 @@ dbl (22): Year, Gender, Policy_Stu, Minority_Stu, Poor_Stu, Father_Edu, Moth...
 </div>
 </div>
 </div>
+<p>The comparison of GPA distribution across gender groups shows largely similar patterns between male and female students. Both groups display concentration within the “Fair” and “Good” categories, with only minor differences in the upper performance levels. Although female students appear to have a slightly higher proportion in the “Excellent” category, the overall distribution shape remains consistent across genders. The overlap in central tendency and spread suggests that gender does not emerge as a strong differentiating factor in academic performance within this dataset. While small variations may exist, they do not indicate substantial structural disparities. This pattern implies that academic outcomes are more likely influenced by other behavioral or institutional variables rather than demographic characteristics alone. Therefore, gender appears to play a relatively limited role in explaining GPA variability in this sample.</p>
+<p>Study Time and GPA</p>
+<p>Social Media Usage and GPA To investigate whether social media usage relates to academic outcomes, we compare GPA distributions across different levels of reported daily social media time. Social media time is treated as an ordered categorical variable. GPA remains numeric for distribution comparison.</p>
+<p>We use a boxplot with jittered points to summarize central tendency and variability across groups. The boxplot highlights median GPA and interquartile range, while the jittered points display individual observations to provide additional context.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> GPA_num, <span class="at">y =</span> Time_Studying)) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>() <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA Distribution by Study Time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Picking joint bandwidth of 0.269</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Time_SocicalMedia, <span class="at">y =</span> GPA_num)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA by Social Media Time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -321,11 +368,18 @@ dbl (22): Year, Gender, Policy_Stu, Minority_Stu, Poor_Stu, Father_Edu, Moth...
 </div>
 </div>
 </div>
+<p>The boxplot comparison of GPA across social media usage levels indicates relatively stable median GPA values across groups.Although statistical testing suggests significance, the effect size and overlapping interquartile ranges indicate that the practical impact remains limited. The interquartile ranges overlap substantially, suggesting limited practical divergence in academic outcomes among different usage categories. Higher levels of social media engagement do not show a dramatic downward shift in GPA distribution, though slight increases in variability are observable in certain groups. This pattern implies that while social media usage may be statistically associated with academic performance, its practical influence appears comparatively small. The absence of a strong monotonic trend suggests that social media time alone may not substantially alter academic outcomes. Instead, its impact may depend on how usage interacts with other behavioral and environmental factors within students’ daily routines.</p>
+<p>Learning Adaptation and GPA</p>
+<p>To examine whether students’ adaptation to the university learning environment is associated with academic performance, we compare GPA distributions across adaptation levels. Learning adaptation is treated as an ordered Likert-scale variable.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Time_SocicalMedia, <span class="at">y =</span> GPA_num)) <span class="sc">+</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA by Social Media Time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Adapt_Learning_Uni, <span class="at">y =</span> GPA_num)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pointinterval</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">point_interval =</span> median_qi,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">.width =</span> <span class="fl">0.95</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA by Learning Adaptation Level"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -334,24 +388,39 @@ dbl (22): Year, Gender, Policy_Stu, Minority_Stu, Poor_Stu, Father_Edu, Moth...
 </div>
 </div>
 </div>
+<p>The visualization of GPA distribution across levels of learning adaptation reveals a consistent upward trend in academic performance as adaptation levels increase. Students reporting stronger adjustment to the university learning environment demonstrate higher concentrations within the “Good” and “Excellent” GPA categories. Conversely, lower adaptation levels correspond with wider dispersion and greater presence in mid-to-lower GPA categories. The progressive shift in distribution suggests that students who adapt effectively may experience more stable and favorable academic outcomes. The reduction in variability among high-adaptation groups further indicates greater performance consistency. While the analysis does not establish causality, the clear directional association highlights adaptation as a potentially important factor related to academic achievement. This finding aligns with educational theories emphasizing the role of environmental adjustment in supporting student engagement and long-term performance stability.</p>
+<p>Lecturer Quality and GPA</p>
+<p>To assess the potential influence of perceived lecturer quality, we compare GPA distributions across ordered lecturer-quality ratings. Lecturer quality is measured on a five-point Likert scale and treated as an ordinal variable.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggstatsplot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>You can cite this package as:
-     Patil, I. (2021). Visualizations with statistical details: The 'ggstatsplot' approach.
-     Journal of Open Source Software, 6(61), 3167, doi:10.21105/joss.03167</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> Quality_Lecturer,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> GPA_num,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"np"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Lecturer Quality vs GPA"</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
+</div>
+<p>The comparison of GPA distributions across perceived lecturer quality levels demonstrates a gradual upward association between instructional quality and academic performance. Students who rate lecturer quality more highly tend to exhibit higher median GPA levels and greater concentration in upper performance categories. Lower quality ratings correspond with slightly lower central tendency and increased dispersion in GPA outcomes. Although the magnitude of difference appears modest, the statistical test indicates significance. However, the effect size is small (η² ≈ 0.01), suggesting that while perceived lecturer quality is statistically associated with GPA, the practical magnitude of this relationship is limited. Therefore, lecturer quality should be interpreted as one contributing factor rather than a dominant determinant of academic performance. It should be noted that group sizes across lecturer-quality levels are highly unequal (e.g., n = 16 in the lowest category versus n = 1,152 in the highest). While non-parametric methods are robust to non-normality, such imbalance may influence statistical sensitivity and interpretation. Therefore, findings should be interpreted with consideration of the underlying distribution of responses.</p>
+<p>Lecturer Support and GPA</p>
+<p>To further explore lecturer-related factors, we analyze GPA distribution across levels of perceived lecturer support. Lecturer support is treated as an ordered Likert-scale variable.</p>
+<p>We use a boxplot with non-parametric comparison to examine differences in GPA across support levels. This method allows evaluation of median shifts while accommodating the ordinal nature of the data.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> Time_SocicalMedia,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> GPA_num,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"np"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Social Media Time vs GPA"</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> SupportOf_Lec,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> GPA_num,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"np"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Lecturer Support vs GPA"</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -360,15 +429,16 @@ dbl (22): Year, Gender, Policy_Stu, Minority_Stu, Poor_Stu, Father_Edu, Moth...
 </div>
 </div>
 </div>
+<p>The analysis of GPA across levels of perceived lecturer support reveals a similar pattern to lecturer quality, with modest upward shifts in median GPA as support levels increase. Students who report higher levels of lecturer support tend to demonstrate slightly more favorable academic distributions, particularly within the upper GPA categories. However, the interquartile ranges continue to overlap across groups, indicating that differences, while present, are not substantial in magnitude. The visual pattern suggests a positive but moderate association between perceived support and academic outcomes. The limited separation between groups implies that lecturer support likely interacts with additional factors—such as study behavior or personal motivation—in shaping overall performance. Therefore, while lecturer support appears to contribute to academic achievement, it should be interpreted as one of several interconnected influences. Similar to lecturer quality, the effect size remains small, indicating that the association, although statistically significant, explains only a limited proportion of variation in GPA.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> Quality_Lecturer,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> GPA_num,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"np"</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Lecturer Quality vs GPA"</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(SupportOf_Lec, GPA_f) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SupportOf_Lec) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> GPA_f, <span class="at">y =</span> SupportOf_Lec, <span class="at">fill =</span> prop)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA Distribution across Lecturer Support Levels"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -377,133 +447,9 @@ dbl (22): Year, Gender, Policy_Stu, Minority_Stu, Poor_Stu, Father_Edu, Moth...
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> GPA_num, <span class="at">y =</span> Adapt_Learning_Uni)) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>() <span class="sc">+</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"GPA Distribution by Learning Adaptation Level"</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Picking joint bandwidth of 0.216</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Adapt_Learning_Uni, <span class="at">y =</span> GPA_num)) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pointinterval</span>(</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.point =</span> median,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.interval =</span> qi,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.width =</span> <span class="fl">0.95</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA by Learning Adaptation Level"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in layer_slabinterval(data = data, mapping = mapping, stat =
-StatPointinterval, : Ignoring unknown parameters: `.point` and `.interval`</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> SupportOf_Lec,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> GPA_num,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"np"</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Lecturer Support vs GPA"</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(SupportOf_Lec, GPA_f) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SupportOf_Lec) <span class="sc">%&gt;%</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> GPA_f, <span class="at">y =</span> SupportOf_Lec, <span class="at">fill =</span> prop)) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA Distribution across Lecturer Support Levels"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> GPA_num, <span class="at">y =</span> SupportOf_Lec)) <span class="sc">+</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">scale =</span> <span class="fl">1.1</span>, <span class="at">rel_min_height =</span> <span class="fl">0.01</span>) <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"GPA Distribution by Lecturer Support"</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"GPA (1-5)"</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Lecturer Support Level (1-5)"</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Picking joint bandwidth of 0.266</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Time_Studying, <span class="at">y =</span> GPA_num)) <span class="sc">+</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pointinterval</span>(</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">.point =</span> median,</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.interval =</span> qi,</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.width =</span> <span class="fu">c</span>(<span class="fl">0.95</span>, <span class="fl">0.99</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"GPA by Study Time with 95% and 99% Intervals"</span>,</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Study Time (1-5)"</span>,</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"GPA (1-5)"</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in layer_slabinterval(data = data, mapping = mapping, stat =
-StatPointinterval, : Ignoring unknown parameters: `.point` and `.interval`</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
