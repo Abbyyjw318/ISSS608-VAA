@@ -215,6 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">2.1 Load Packages</a></li>
   <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">2.2 Import data</a></li>
+  <li><a href="#variable-selection" id="toc-variable-selection" class="nav-link" data-scroll-target="#variable-selection">2.3 Variable Selection</a></li>
   </ul></li>
   <li><a href="#overall-gpa-distribution" id="toc-overall-gpa-distribution" class="nav-link" data-scroll-target="#overall-gpa-distribution">3. Overall GPA Distribution</a></li>
   <li><a href="#demographic-factors" id="toc-demographic-factors" class="nav-link" data-scroll-target="#demographic-factors">4. Demographic Factors</a>
@@ -290,25 +291,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>2. Getting Started</h1>
 <section id="load-packages" class="level2">
 <h2 class="anchored" data-anchor-id="load-packages">2.1 Load Packages</h2>
-<p><br>
-We load the following R packages using the pacman::p_load() function to support data import, wrangling, visualisation, and statistical graphics: tidyverse: Core collection of packages for data wrangling (dplyr), data import (readr), and data visualisation (ggplot2). scales: Provides scaling functions (e.g., percentage labels) used in ggplot2 visualisations. ggthemes: Offers additional themes to improve plot aesthetics beyond default ggplot2 themes. ggridges: Used to create ridgeline density plots for comparing GPA distributions across ordinal groups. ggdist: Provides visualisations of distributions and uncertainty (e.g., median + interval plots using stat_pointinterval()). ggstatsplot: Produces enhanced statistical visualisations such as ggbetweenstats(), integrating non-parametric tests and effect sizes directly into the plots. colorspace: Supports colour palettes and colour manipulation utilities (useful when fine-tuning plot appearance).</p>
+<p>We load the following R packages using the pacman::p_load() function to support data import, wrangling, visualisation, and statistical graphics: tidyverse: Core collection of packages for data wrangling (dplyr), data import (readr), and data visualisation (ggplot2). scales: Provides scaling functions (e.g., percentage labels) used in ggplot2 visualisations. ggthemes: Offers additional themes to improve plot aesthetics beyond default ggplot2 themes. ggridges: Used to create ridgeline density plots for comparing GPA distributions across ordinal groups. ggdist: Provides visualisations of distributions and uncertainty (e.g., median + interval plots using stat_pointinterval()). ggstatsplot: Produces enhanced statistical visualisations such as ggbetweenstats(), integrating non-parametric tests and effect sizes directly into the plots. colorspace: Supports colour palettes and colour manipulation utilities (useful when fine-tuning plot appearance).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, ggdist, ggridges, ggthemes, scales, ggstatsplot, colorspace)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="import-data" class="level2">
 <h2 class="anchored" data-anchor-id="import-data">2.2 Import data</h2>
+<p>The data for this exercise is retrieved from the publicly available survey dataset published on Mendeley Data (https://data.mendeley.com/datasets/23ppcdbmhc/1)</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Database_paper <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Database_paper.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The dataset contains 2,170 survey responses collected in 2023.<br>
 </p>
-<p>Variables include:</p>
-<ul>
-<li><p>Demographic factors (Gender, Year, Family background)</p>
-<p>Behavioral factors (Study time, Social media time, Time with friends)</p>
-<p>Institutional perception (Support, Facilities, Lecturer quality)</p>
-<p>Academic outcome (GPA categorized into five levels)</p>
+</section>
+<section id="variable-selection" class="level2">
+<h2 class="anchored" data-anchor-id="variable-selection">2.3 Variable Selection</h2>
+<p>In order to investigate factors associated with students’ academic performance (GPA), a subset of relevant variables was selected from the survey dataset based on theoretical relevance and analytical purpose.</p>
+<p>The dependent variable in this study is GPA, treated as an ordered categorical variable ranging from Poor to Excellent.</p>
+<p>The independent variables were selected across three broad dimensions:</p>
+<p>Demographic factors (Gender, Poor household status)</p>
+<p>Behavioral factors (Study time, Social media time)</p>
+<p>Institutional factors (Learning adaptation, Lecturer support)</p>
+<p>These variables were chosen because prior educational research suggests that academic outcomes are influenced by a combination of personal background, study behaviors, and institutional context.</p>
+<p>Details of the selected variables are extracted from the survey Codebook and summarized in Table below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 1. Selected Variables and Their Coding Scheme</caption>
+<colgroup>
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 38%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Variable_Name</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Encoding</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Academic outcome</td>
+<td style="text-align: left;">GPA</td>
+<td style="text-align: left;">Cumulative Grade Point Average</td>
+<td style="text-align: left;">1=Poor; 2=Average; 3=Fair; 4=Good; 5=Excellent</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Demographic</td>
+<td style="text-align: left;">Gender</td>
+<td style="text-align: left;">Student gender</td>
+<td style="text-align: left;">1 = Male; 2 = Female</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Demographic</td>
+<td style="text-align: left;">Poor_Stu</td>
+<td style="text-align: left;">Whether student belongs to poor household</td>
+<td style="text-align: left;">1 = Yes; 2 = No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Behavioral</td>
+<td style="text-align: left;">Time_Studying</td>
+<td style="text-align: left;">Average daily study time</td>
+<td style="text-align: left;">1=&lt;2h; 2=1~2h; 3=2~3h; 4=3~4h; 5=&gt;4h</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Behavioral</td>
+<td style="text-align: left;">Time_SocicalMedia</td>
+<td style="text-align: left;">Average daily social media usage time</td>
+<td style="text-align: left;">1 = &lt;1h … 5 = &gt;4h</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Institutional</td>
+<td style="text-align: left;">Adapt_Learning_Uni</td>
+<td style="text-align: left;">Level of adaptation to university learning environment</td>
+<td style="text-align: left;">1=Not at all; 2=Little; 3=Moderate; 4=Quite; 5=Very</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Institutional</td>
+<td style="text-align: left;">SupportOf_Lec</td>
+<td style="text-align: left;">Level of lecturer support</td>
+<td style="text-align: left;">1=Not at all; 2=Little; 3=Moderate; 4=Quite; 5=Very</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We standardised the dataset by converting key variables into ordered factors with clear labels (1–5) for ordinal survey items, and recoding nominal variables (e.g., Gender, Poor_Stu) into descriptive categories to support consistent plotting and comparison.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> Database_paper <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -351,8 +423,7 @@ We load the following R packages using the pacman::p_load() function to support 
 <span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year   =</span> <span class="fu">factor</span>(Year, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>All ordinal survey variables were converted into ordered factors. GPA was treated as an ordered categorical variable. Numeric coding was used solely to facilitate rank-based visualization and non-parametric comparison.</p></li>
-</ul>
+<p>All ordinal survey variables were converted into ordered factors. GPA was treated as an ordered categorical variable. Numeric coding was used solely to facilitate rank-based visualization and non-parametric comparison.</p>
 <p>Although the primary objective of this study is exploratory, non-parametric group comparisons (Kruskal–Wallis tests) are conducted where appropriate to assess whether observed differences across ordinal categories are statistically meaningful. Given that GPA and most explanatory variables are measured on ordinal scales, rank-based methods are preferred over parametric alternatives. Statistical results are interpreted alongside effect sizes to emphasize practical rather than merely statistical significance.</p>
 </section>
 </section>
@@ -360,14 +431,14 @@ We load the following R packages using the pacman::p_load() function to support 
 <h1>3. Overall GPA Distribution</h1>
 <p>To understand the general academic performance of students, we first examine the overall distribution of GPA categories. GPA is treated as an ordered categorical variable ranging from “Poor” to “Excellent.” Since the objective is exploratory rather than inferential, we focus on visualizing how GPA values are distributed across the student population. We use a bar chart to display the proportion of students in each GPA category. This allows clear comparison of relative frequencies and provides an intuitive overview of central tendency and dispersion. Percentages are used instead of counts to improve interpretability.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">code</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -395,6 +466,21 @@ We load the following R packages using the pacman::p_load() function to support 
 <h2 class="anchored" data-anchor-id="gender-and-gpa">4.1 Gender and GPA</h2>
 <p>To examine whether demographic characteristics influence academic outcomes, we compare GPA distribution across gender groups. Gender is treated as a categorical variable with two levels: Male and Female. GPA remains an ordered categorical variable.</p>
 <p>We use a grouped bar chart showing the percentage distribution of GPA within each gender. Displaying proportions rather than raw counts allows fair comparison across groups regardless of group size. The side-by-side bars facilitate visual comparison of performance patterns.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> GPA_f, <span class="at">fill =</span> Gender)) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop), <span class="at">group =</span> Gender),</span>
@@ -405,11 +491,7 @@ We load the following R packages using the pacman::p_load() function to support 
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"GPA"</span>,</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Percentage"</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+</div>
 </div>
 </div>
 </div>
@@ -418,18 +500,28 @@ We load the following R packages using the pacman::p_load() function to support 
 <section id="family-economic-status-and-academic-performance" class="level2">
 <h2 class="anchored" data-anchor-id="family-economic-status-and-academic-performance">4.2 Family Economic Status and Academic Performance</h2>
 <p>Family economic background was proxied using the binary survey indicator Poor_Stu (Poor household vs Non-poor household). GPA distributions were compared between the two groups using grouped percentage bar charts. Proportions were computed within each economic category to ensure meaningful structural comparison. This visually driven approach enables assessment of distributional shifts without assuming numeric distance between GPA categories.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grouped percentage</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> GPA_f, <span class="at">fill =</span> <span class="fu">factor</span>(Poor_Stu))) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop), <span class="at">group =</span> <span class="fu">factor</span>(Poor_Stu)), <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA Distribution by Family Economic Status"</span>, <span class="at">x =</span> <span class="st">"GPA"</span>, <span class="at">y =</span> <span class="st">"Percentage"</span>) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> GPA_f, <span class="at">fill =</span> <span class="fu">factor</span>(Poor_Stu))) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop), <span class="at">group =</span> <span class="fu">factor</span>(Poor_Stu)), <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA Distribution by Family Economic Status"</span>, <span class="at">x =</span> <span class="st">"GPA"</span>, <span class="at">y =</span> <span class="st">"Percentage"</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </div>
 </div>
 </div>
@@ -442,6 +534,21 @@ We load the following R packages using the pacman::p_load() function to support 
 <h2 class="anchored" data-anchor-id="study-time-and-gpa-composition">5.1 Study Time and GPA Composition</h2>
 <p>To examine how daily study duration relates to academic performance, we compare the proportional distribution of GPA categories across study-time groups. Study time is treated as an ordered categorical variable representing increasing hours of daily study, while GPA is recoded into ordered categories ranging from “Poor” to “Excellent.”</p>
 <p>A 100% stacked bar chart is used to visualize the composition of GPA within each study-time group. This approach allows direct comparison of the relative share of performance categories across groups, independent of sample size differences. By standardizing each bar to 100%, we focus on structural differences in performance distribution rather than absolute counts.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y =</span> Time_Studying, <span class="at">fill =</span> GPA_f)) <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">width =</span> <span class="fl">0.65</span>) <span class="sc">+</span></span>
@@ -454,11 +561,7 @@ We load the following R packages using the pacman::p_load() function to support 
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+</div>
 </div>
 </div>
 </div>
@@ -467,6 +570,21 @@ We load the following R packages using the pacman::p_load() function to support 
 <section id="social-media-usage-and-gpa" class="level2">
 <h2 class="anchored" data-anchor-id="social-media-usage-and-gpa">5.2 Social Media Usage and GPA</h2>
 <p>Daily social media usage was examined as a behavioral variable potentially associated with academic performance. GPA category distributions were compared across usage-level groups using grouped percentage bar charts. Proportions were calculated within each social media category to allow structural comparison without assuming interval distance between GPA levels.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Time_SocicalMedia, <span class="at">y =</span> GPA_num, <span class="at">fill =</span> Time_SocicalMedia)) <span class="sc">+</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
@@ -480,11 +598,7 @@ We load the following R packages using the pacman::p_load() function to support 
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>)</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+</div>
 </div>
 </div>
 </div>
@@ -496,20 +610,29 @@ We load the following R packages using the pacman::p_load() function to support 
 <section id="learning-adaptation-and-gpa" class="level2">
 <h2 class="anchored" data-anchor-id="learning-adaptation-and-gpa">6.1 Learning Adaptation and GPA</h2>
 <p>Students’ adaptation to the university learning environment was examined as an institutional factor potentially associated with academic performance. GPA was treated as an ordered categorical variable, and proportions were calculated within each adaptation level to allow fair structural comparison. A visually driven grouped percentage bar chart was used to evaluate distributional shifts across adaptation categories.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdist)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Adapt_Learning_Uni, <span class="at">y =</span> GPA_num)) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pointinterval</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">point_interval =</span> median_qi,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">.width =</span> <span class="fl">0.95</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA by Learning Adaptation Level"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Adapt_Learning_Uni, <span class="at">y =</span> GPA_num)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pointinterval</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">point_interval =</span> median_qi,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">.width =</span> <span class="fl">0.95</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GPA by Learning Adaptation Level"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </div>
 </div>
 </div>
@@ -518,6 +641,21 @@ We load the following R packages using the pacman::p_load() function to support 
 <section id="lecturer-quality-and-gpa" class="level2">
 <h2 class="anchored" data-anchor-id="lecturer-quality-and-gpa">6.2 Lecturer Quality and GPA</h2>
 <p>Perceived lecturer quality was analyzed as an institutional variable reflecting instructional environment. GPA distributions were compared across quality perception levels using grouped percentage bar charts, with proportions calculated within each category to ensure comparability. This visually driven approach enables evaluation of structural differences without assuming interval-scale properties.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
@@ -527,11 +665,7 @@ We load the following R packages using the pacman::p_load() function to support 
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Lecturer Quality vs GPA"</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+</div>
 </div>
 </div>
 </div>
@@ -541,6 +675,21 @@ We load the following R packages using the pacman::p_load() function to support 
 <h2 class="anchored" data-anchor-id="lecturer-support-and-gpa">6.3 Lecturer Support and GPA</h2>
 <p>To further explore lecturer-related factors, we analyze GPA distribution across levels of perceived lecturer support. Lecturer support is treated as an ordered Likert-scale variable.</p>
 <p>We use a boxplot with non-parametric comparison to examine differences in GPA across support levels. This method allows evaluation of median shifts while accommodating the ordinal nature of the data.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
@@ -550,11 +699,7 @@ We load the following R packages using the pacman::p_load() function to support 
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Lecturer Support vs GPA"</span></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+</div>
 </div>
 </div>
 </div>
