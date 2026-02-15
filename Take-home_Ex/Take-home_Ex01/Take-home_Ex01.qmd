@@ -1,13 +1,15 @@
 ---
 title: "Take-home_Ex01"
+subtitle: "Exploring Distributional Relationships Between Student Behaviors and Academic Performance"
 author: "Wu Yanjie"
+date: "2026-02-15"
 ---
 
 # 1. Introduction
 
 ## 1.1 Background
 
-Academic performance is shaped by a combination of personal characteristics, learning behaviors, and institutional experiences. However, these factors do not necessarily influence performance by creating distinct groups of high- and low-achieving students; instead, they may gradually reposition students along a performance continuum. Understanding whether variables produce clear separation or merely shift distributional placement is therefore essential for interpreting their practical relevance in educational settings.
+Academic performance is shaped by a combination of personal characteristics, learning behaviors, and institutional experiences. However, these factors do not necessarily influence performance by creating distinct groups of high and low achieving students; instead, they may gradually reposition students along a performance continuum. Understanding whether variables produce clear separation or merely shift distributional placement is therefore essential for interpreting their practical relevance in educational settings.
 
 This study examines survey responses from students at the University of Education, Vietnam National University, Hanoi. Rather than focusing on prediction, the analysis investigates how different factors are structurally associated with ordered GPA categories, emphasizing distributional patterns instead of mean differences.
 
@@ -27,7 +29,19 @@ By comparing distributional structures across ordered categories, the analysis d
 
 ## 2.1 Load Packages
 
-We load the following R packages using the pacman::p_load() function to support data import, wrangling, visualisation, and statistical graphics: tidyverse: Core collection of packages for data wrangling (dplyr), data import (readr), and data visualisation (ggplot2). scales: Provides scaling functions (e.g., percentage labels) used in ggplot2 visualisations. ggthemes: Offers additional themes to improve plot aesthetics beyond default ggplot2 themes. ggridges: Used to create ridgeline density plots for comparing GPA distributions across ordinal groups. ggdist: Provides visualisations of distributions and uncertainty (e.g., median + interval plots using stat_pointinterval()). ggstatsplot: Produces enhanced statistical visualisations such as ggbetweenstats(), integrating non-parametric tests and effect sizes directly into the plots. colorspace: Supports colour palettes and colour manipulation utilities (useful when fine-tuning plot appearance).
+We load the following R packages using the pacman::p_load() function to support data import, wrangling, visualisation, and statistical graphics:
+
+-   tidyverse: Core collection of packages for data wrangling (dplyr), data import (readr), and data visualisation (ggplot2).
+
+-   scales: Provides scaling functions (e.g., percentage labels) used in ggplot2 visualisations. ggthemes: Offers additional themes to improve plot aesthetics beyond default ggplot2 themes.
+
+-   ggridges: Used to create ridgeline density plots for comparing GPA distributions across ordinal groups.
+
+-   ggdist: Provides visualisations of distributions and uncertainty (e.g., median + interval plots using stat_pointinterval()).
+
+-   ggstatsplot: Produces enhanced statistical visualisations such as ggbetweenstats(), integrating non-parametric tests and effect sizes directly into the plots.
+
+-   colorspace: Supports colour palettes and colour manipulation utilities (useful when fine-tuning plot appearance).
 
 ```{r}
 pacman::p_load(tidyverse, ggdist, ggridges, ggthemes, scales, ggstatsplot, colorspace)

@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wu Yanjie">
+<meta name="dcterms.date" content="2026-02-15">
 
 <title>Take-home_Ex01 – ISSS608-VAA</title>
 <style>
@@ -250,6 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Take-home_Ex01</h1>
+<p class="subtitle lead">Exploring Distributional Relationships Between Student Behaviors and Academic Performance</p>
 </div>
 
 
@@ -263,6 +265,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 15, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -276,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>1. Introduction</h1>
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">1.1 Background</h2>
-<p>Academic performance is shaped by a combination of personal characteristics, learning behaviors, and institutional experiences. However, these factors do not necessarily influence performance by creating distinct groups of high- and low-achieving students; instead, they may gradually reposition students along a performance continuum. Understanding whether variables produce clear separation or merely shift distributional placement is therefore essential for interpreting their practical relevance in educational settings.</p>
+<p>Academic performance is shaped by a combination of personal characteristics, learning behaviors, and institutional experiences. However, these factors do not necessarily influence performance by creating distinct groups of high and low achieving students; instead, they may gradually reposition students along a performance continuum. Understanding whether variables produce clear separation or merely shift distributional placement is therefore essential for interpreting their practical relevance in educational settings.</p>
 <p>This study examines survey responses from students at the University of Education, Vietnam National University, Hanoi. Rather than focusing on prediction, the analysis investigates how different factors are structurally associated with ordered GPA categories, emphasizing distributional patterns instead of mean differences.</p>
 </section>
 <section id="objectives" class="level2">
@@ -292,7 +300,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>2. Getting Started</h1>
 <section id="load-packages" class="level2">
 <h2 class="anchored" data-anchor-id="load-packages">2.1 Load Packages</h2>
-<p>We load the following R packages using the pacman::p_load() function to support data import, wrangling, visualisation, and statistical graphics: tidyverse: Core collection of packages for data wrangling (dplyr), data import (readr), and data visualisation (ggplot2). scales: Provides scaling functions (e.g., percentage labels) used in ggplot2 visualisations. ggthemes: Offers additional themes to improve plot aesthetics beyond default ggplot2 themes. ggridges: Used to create ridgeline density plots for comparing GPA distributions across ordinal groups. ggdist: Provides visualisations of distributions and uncertainty (e.g., median + interval plots using stat_pointinterval()). ggstatsplot: Produces enhanced statistical visualisations such as ggbetweenstats(), integrating non-parametric tests and effect sizes directly into the plots. colorspace: Supports colour palettes and colour manipulation utilities (useful when fine-tuning plot appearance).</p>
+<p>We load the following R packages using the pacman::p_load() function to support data import, wrangling, visualisation, and statistical graphics:</p>
+<ul>
+<li><p>tidyverse: Core collection of packages for data wrangling (dplyr), data import (readr), and data visualisation (ggplot2).</p></li>
+<li><p>scales: Provides scaling functions (e.g., percentage labels) used in ggplot2 visualisations. ggthemes: Offers additional themes to improve plot aesthetics beyond default ggplot2 themes.</p></li>
+<li><p>ggridges: Used to create ridgeline density plots for comparing GPA distributions across ordinal groups.</p></li>
+<li><p>ggdist: Provides visualisations of distributions and uncertainty (e.g., median + interval plots using stat_pointinterval()).</p></li>
+<li><p>ggstatsplot: Produces enhanced statistical visualisations such as ggbetweenstats(), integrating non-parametric tests and effect sizes directly into the plots.</p></li>
+<li><p>colorspace: Supports colour palettes and colour manipulation utilities (useful when fine-tuning plot appearance).</p></li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, ggdist, ggridges, ggthemes, scales, ggstatsplot, colorspace)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
