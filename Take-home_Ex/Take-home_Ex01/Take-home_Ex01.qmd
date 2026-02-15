@@ -533,12 +533,9 @@ Across the examined variables, differences in academic performance are better ch
 
 Overall, the results suggest that academic performance in this dataset is aligned more with engagement and adjustment processes than with static background characteristics. Rather than sharply separating groups, most factors operate by gradually redistributing students along an existing performance continuum.
 
-
-
 ## 7.2 Interpretation
 
 These findings indicate that academic outcomes are structured through cumulative behavioral and contextual alignment rather than single dominant predictors. Variables related to active participation in learning exhibit systematic ordering effects, whereas demographic attributes mainly contribute marginal compositional differences. The analysis therefore highlights performance positioning along a continuum rather than categorical performance gaps.
-
 
 ## 7.3 Limitations
 
@@ -552,7 +549,7 @@ Third, group sizes across certain response categories are imbalanced, which may 
 
 Finally, the analysis is exploratory and visually driven. Although it identifies structural patterns, it does not control for confounding variables or model potential interactions among demographic, behavioral, and institutional factors.
 
-# 8 Reference 
+# 8 Reference
 
 https://data.mendeley.com/datasets/23ppcdbmhc/1
 
