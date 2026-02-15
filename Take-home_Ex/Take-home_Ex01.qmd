@@ -7,21 +7,21 @@ author: "Wu Yanjie"
 
 ## 1.1 Background
 
-This study analyzes survey data collected from students at the University of Education, Vietnam National University, Hanoi. The dataset aims to explore factors potentially associated with students’ academic performance, measured using categorized GPA levels.
+Academic performance is shaped by a combination of personal characteristics, learning behaviors, and institutional experiences. However, these factors do not necessarily influence performance by creating distinct groups of high- and low-achieving students; instead, they may gradually reposition students along a performance continuum. Understanding whether variables produce clear separation or merely shift distributional placement is therefore essential for interpreting their practical relevance in educational settings.
 
-Understanding the relationship between academic outcomes and factors such as study behavior, institutional support, and perceived lecturer quality is important for identifying patterns that may contribute to student success.
+This study examines survey responses from students at the University of Education, Vietnam National University, Hanoi. Rather than focusing on prediction, the analysis investigates how different factors are structurally associated with ordered GPA categories, emphasizing distributional patterns instead of mean differences.
 
 ## 1.2 Objectives
 
-To reveal meaningful patterns, variables are organized into three conceptual domains:
+The study aims to evaluate how academic performance varies across three domains:
 
-Demographic factors (Gender, Year, Family background)
+Demographic background (gender, economic status)
 
-Behavioral factors (Study time, Social media use, Time with friends)
+Behavioral engagement (study time, social media use)
 
-Institutional factors (Learning adaptation, Lecturer quality, Lecturer support)
+Institutional experience (learning adaptation, lecturer support and quality)
 
-Each factor is analyzed visually, followed by non-parametric comparisons and effect size estimation. The final section synthesizes and ranks factors by relative association strength.
+By comparing distributional structures across ordered categories, the analysis distinguishes between variables that create systematic gradients and those that produce only minor compositional differences. The goal is not to infer causality but to identify how different factors align with students’ relative position within the performance hierarchy.
 
 # 2. Getting Started
 
@@ -250,7 +250,7 @@ ggplot(df, aes(x = GPA_f, fill = Gender)) +
 ::: callout-tip
 ## Observation
 
-The GPA distributions for male and female students show substantial overlap across all performance categories. Both groups are predominantly concentrated in the “Fair” and “Good” categories, with nearly identical proportions in the central “Fair” category. Female students display a slightly higher proportion in the “Excellent” category and a marginally lower proportion in the lower GPA categories compared to male students. However, the magnitude of these differences appears modest, and no strong structural separation between gender groups is visually evident. The parallel distribution patterns suggest that gender does not meaningfully differentiate academic outcomes in this sample. Overall, while minor proportional shifts exist, the demographic effect of gender on GPA composition appears limited relative to other behavioral or institutional factors examined later in the analysis.
+The GPA distributions for male and female students show substantial overlap across all performance categories. Both groups are mainly concentrated in the “Fair” and “Good” levels, and no consistent directional shift across the ordered GPA scale is observed. Female students have a slightly higher proportion in the “Excellent” category, while males appear marginally more represented in lower categories; however, these differences occur locally rather than progressively across adjacent levels. The absence of a gradient pattern suggests distributional similarity rather than a systematic association between gender and academic performance. Overall, gender does not appear to reorganize the performance hierarchy but only introduces minor fluctuations within categories, indicating that demographic grouping plays a limited role compared with behavioral or institutional factors examined later.
 :::
 
 ## 4.2 Family Economic Status and Academic Performance
@@ -287,7 +287,7 @@ ggplot(df, aes(x = GPA_f, fill = factor(Poor_Stu))) +
 ::: callout-tip
 ## Observation
 
-Students from non-poor households demonstrate a moderately higher concentration in the “Good” and “Excellent” GPA categories compared to those from poor households. Conversely, students from poor households show a noticeably higher proportion in the “Fair” category, indicating a slight downward shift in performance distribution. Although the differences are visually detectable, the overall distributional overlap remains considerable across most GPA levels. The majority of students in both groups fall within the central performance categories, suggesting that economic background influences GPA composition only to a limited extent. While the non-poor group appears to have a modest advantage in higher performance categories, the magnitude of separation is not large. Compared with behavioral factors such as study time or adaptation measures examined later, economic status appears to exert a relatively weaker structural association with academic performance outcomes.
+Students from non-poor households show a slightly higher proportion in the “Good” and “Excellent” GPA categories, while students from poor households are more concentrated in the “Fair” level. However, these differences do not develop progressively across adjacent performance categories and substantial overlap remains across the full distribution. The pattern therefore reflects a modest shift in concentration rather than a systematic redistribution of performance positions. Unlike behavioral variables, economic background does not produce a clear ordered gradient along the GPA scale but instead introduces a small imbalance around the central categories. This suggests that family economic status is associated with variation in performance composition, yet the association is weak in structure and does not substantially reorganize the academic performance hierarchy.
 :::
 
 # 5. Behavioral Factors
@@ -340,7 +340,7 @@ ggplot(df, aes(y = Time_Studying, fill = GPA_f)) +
 ::: callout-tip
 ## Observation
 
-Students who reported longer daily study durations exhibit a clearer upward shift in GPA composition compared to those studying fewer hours per day. Specifically, the proportion of students in the “Good” and “Excellent” categories increases progressively with higher study-time categories, while the share of lower performance categories declines. This pattern appears directionally consistent and more structurally distinct than demographic variables previously examined. Although overlap remains across groups, the monotonic trend suggests a meaningful behavioral association between study engagement and academic outcomes. The visual gradient across study-time levels indicates that increased study duration corresponds with improved GPA distribution. Compared to gender and economic background, study time demonstrates a more coherent and interpretable pattern of performance differentiation, highlighting behavioral engagement as a relatively stronger correlate of academic achievement within this sample.
+A clear directional pattern emerges across study-time categories. As daily study duration increases, the proportion of students in the “Good” and “Excellent” categories rises, while lower performance categories gradually decline. Importantly, this shift occurs progressively across adjacent levels rather than appearing only at extreme groups, indicating a systematic redistribution of performance rather than isolated differences. Although overlap between groups remains, the ordered gradient suggests a structured association between study engagement and academic outcomes. Compared with demographic factors, study time shows a more coherent pattern across the ordinal scale, implying that variation in performance is aligned with behavioral intensity rather than categorical group membership. This relationship reflects a consistent performance shift rather than a sharp separation between groups..
 :::
 
 ## 5.2 Social Media Usage and GPA
@@ -391,7 +391,7 @@ ggplot(df, aes(x = Time_SocicalMedia, y = GPA_num, fill = Time_SocicalMedia)) +
 ::: callout-tip
 ## Observation
 
-The GPA distributions across social media usage levels reveal minimal structural differentiation. While slight proportional fluctuations appear across categories, no clear monotonic pattern emerges between time spent on social media and academic performance. The majority of students in all usage groups remain concentrated within the “Fair” and “Good” GPA categories, and differences in the “Excellent” and lower categories are modest. The absence of a consistent directional gradient suggests that daily social media time alone does not meaningfully distinguish academic outcomes within this dataset. Although small distributional shifts may be present, the overall overlap across usage groups remains substantial. Relative to study time, which demonstrated a clearer association pattern, social media usage appears to exhibit a weaker and less structurally coherent relationship with GPA composition.
+The GPA distributions across social media usage levels show substantial overlap and lack a consistent directional pattern. Minor proportional fluctuations appear between categories; however, these differences do not progress systematically across adjacent usage levels. Both low- and high-usage groups remain concentrated in the “Fair” and “Good” performance categories, and higher usage does not correspond to a steady movement toward either higher or lower GPA levels. The absence of an ordered gradient suggests that social media time does not reorganize the performance distribution but only introduces small local variations. Compared with study time, the relationship appears irregular rather than structured, indicating that daily social media usage alone provides limited differentiation in academic performance within this dataset.
 :::
 
 # 6. Institutional Factors
@@ -432,7 +432,7 @@ ggplot(df, aes(x = Adapt_Learning_Uni, y = GPA_num)) +
 ::: callout-tip
 ## Observation
 
-A clear directional pattern is observed across adaptation levels. Students reporting higher levels of adaptation demonstrate progressively greater proportions in the “Good” and “Excellent” GPA categories, alongside reduced representation in lower performance categories. Unlike demographic variables, which showed minimal structural separation, adaptation reveals a more consistent upward gradient in academic performance distribution. Although overlap remains across groups, the shift in composition appears more pronounced and visually coherent than that observed for social media usage or economic status. The monotonic trend suggests that students who feel better adjusted to the university learning environment tend to cluster more strongly in higher GPA categories. While the magnitude of separation is not extreme, adaptation emerges as one of the more structurally differentiated institutional factors examined in this analysis.
+A consistent upward gradient is observed across learning adaptation levels. Students reporting higher adaptation show progressively greater representation in the “Good” and “Excellent” categories, accompanied by a reduction in lower performance levels. Unlike isolated category differences, this shift occurs across multiple adjacent adaptation levels, indicating a structured redistribution of academic outcomes along the ordinal scale. Although group overlap remains, the monotonic pattern suggests alignment between adjustment to the learning environment and performance positioning. Compared with demographic variables, adaptation demonstrates a clearer ordering effect, where higher adjustment corresponds to systematically higher performance placement rather than sporadic differences. This pattern reflects a coherent association across the performance hierarchy rather than discrete group separation.
 :::
 
 ## 6.2 Lecturer Quality and GPA
@@ -529,29 +529,16 @@ These findings suggest that while perceived lecturer support aligns directionall
 
 ## 7.1 Overall Key Observations
 
-This visually driven survey analysis reveals several consistent patterns regarding factors associated with categorized academic performance.
+Across the examined variables, differences in academic performance are better characterized by relationship structure rather than magnitude alone. Demographic characteristics such as gender show distributional similarity, while family economic status introduces only a mild shift around central performance categories. In contrast, behavioral engagement and learning adaptation display ordered gradients, where higher levels correspond to progressively higher placement within the GPA hierarchy. Social media usage shows irregular variation without a consistent directional pattern. Lecturer-related perceptions demonstrate small but directionally consistent associations.
 
-Gender shows minimal differentiation in GPA composition, with substantial overlap across all performance categories and no clear structural separation.
+Overall, the results suggest that academic performance in this dataset is aligned more with engagement and adjustment processes than with static background characteristics. Rather than sharply separating groups, most factors operate by gradually redistributing students along an existing performance continuum.
 
-Family economic status demonstrates modest association, as non-poor students exhibit slightly higher representation in upper GPA categories, though distributional overlap remains considerable.
 
-Daily study time displays the clearest monotonic gradient, with longer study duration corresponding to progressively stronger concentration in higher GPA categories.
-
-Social media usage shows weak and inconsistent differentiation, with no clear directional pattern across usage levels.
-
-Learning adaptation emerges as the strongest institutional factor, exhibiting a consistent upward shift in GPA composition across adaptation levels.
-
-Lecturer quality and lecturer support demonstrate positive but small associations, with statistically significant yet practically limited structural differentiation.
-
-Overall, behavioral engagement and learning adaptation appear to demonstrate more structurally coherent relationships with GPA distribution than demographic characteristics or isolated institutional perceptions.
 
 ## 7.2 Interpretation
 
-While several variables show observable distributional differences, the magnitude of separation across most factors remains moderate. The findings suggest that academic performance is influenced by multiple interacting elements rather than a single dominant predictor.
+These findings indicate that academic outcomes are structured through cumulative behavioral and contextual alignment rather than single dominant predictors. Variables related to active participation in learning exhibit systematic ordering effects, whereas demographic attributes mainly contribute marginal compositional differences. The analysis therefore highlights performance positioning along a continuum rather than categorical performance gaps.
 
-Behavioral engagement, particularly study time, and institutional adaptation display more consistent structural gradients, indicating stronger relative alignment with academic outcomes. In contrast, demographic characteristics such as gender and economic status appear to exert comparatively weaker influence within this dataset.
-
-Importantly, these results represent associative patterns derived from cross-sectional survey data. The analysis does not establish causal relationships, and potential interactions between variables were not modeled.
 
 ## 7.3 Limitations
 
