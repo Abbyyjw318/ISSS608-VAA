@@ -19,7 +19,7 @@ pacman::p_load(sf, tmap, tidyverse)
 
 ## Geospatial Data Wrangling
 
-### The data 
+### The data
 
 The data set use for this hands-on exercise is called SGPools_svy21. The data is in csv file format.
 
