@@ -1,0 +1,307 @@
+---
+title: "Take-home Ex2"
+author: "WuYanjie"
+---
+
+Install package
+```{r}
+pacman::p_load(tidyverse,readxl,corrplot,data.table,lubridate,ggthemes,gridExtra,
+  scales,viridis,knitr,ggridges, patchwork)
+```
+
+import data
+```{r}
+data <- read_excel("data/data.xlsx")
+```
+
+Data preparation
+```{r}
+df_clean <- data %>%
+  mutate(date = make_date(year, month, 1)) %>%
+  arrange(date)
+
+df_wide <- df_clean %>%
+  pivot_wider(names_from = category, values_from = total) %>%
+  mutate(
+    trade_balance = output - input,  #贸易顺差
+    trade_total   = output + input,  #贸易总额
+    year          = year(date)
+        )
+```
+
+EDA
+
+1.total trade
+2.import vs export trend
+3.trade balance
+4.top countries
+5.country-level structure
+6.country-level input vs output trend
+7.country-level trade balance trend
+8.monthly seasonal pattern
+9 seasonal heatmap
+10.seasonal ribbon plot
+
+```{r}
+#1 Overall Trade Total Trend
+df_total <- df_clean %>%
+  group_by(date) %>%
+  summarise(trade_total = sum(total, na.rm = TRUE))
+
+ggplot(df_total,
+       aes(x = date, y = trade_total)) +
+  geom_line(color = "steelblue", linewidth = 1) +
+  labs(
+    title = "Total Trade Over Time",
+    x = "Date",
+    y = "Trade Total"
+  ) +
+  theme_minimal()
+```
+
+
+```{r}
+# 2 input output trend
+df_clean %>%
+  group_by(date, category) %>%
+  summarise(total = sum(total)) %>%
+  ggplot(aes(date, total, color = category)) +
+  geom_line()
+```
+
+```{r}
+#3 trade_balance
+df_wide %>%
+  group_by(date) %>%
+  summarise(balance = sum(trade_balance)) %>%
+  ggplot(aes(date, balance)) +
+  geom_line()
+```
+
+
+```{r}
+#4 top trading partners
+df_clean %>%
+  group_by(country) %>%
+  summarise(total_trade = sum(total)) %>%
+  arrange(desc(total_trade))
+```
+
+```{r}
+#5 trade country-level structure
+ggplot(df_clean,
+       aes(country, total, fill = category)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Trade Country-level Structure",
+    x = "Country",
+    y = "Trade Value"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#6 country-level input vs output trend
+ggplot(df_clean, aes(x = date, y = total, color = country)) +
+  geom_line(alpha = 0.7) +
+  facet_wrap(~category, scales = "free_y") +
+  theme_minimal() +
+  labs(title = "Singapore Trade Trend (2000-2026)", y = "Total Value")
+```
+
+
+```{r}
+#7 country-level trade balance trend
+
+df_wide_plot <- df_wide %>%
+  mutate(month = factor(month(date), levels = 1:12)) 
+
+ggplot(df_wide_plot, aes(x = month, y = trade_balance, group = year)) +
+  geom_line(aes(color = year), alpha = 0.3) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  facet_wrap(~country) +
+  scale_color_viridis_c() +
+  theme_tufte() +
+  labs(title = "Monthly Trade Balance Seasonality",
+       subtitle = "Output - Input (Red line indicates balanced trade)",
+       x = "Month", y = "Balance Amount")
+```
+
+```{r}
+#8 Monthly seasonal pattern
+
+season_month <- df_clean %>%
+  mutate(month = factor(month(date), levels = 1:12)) %>%
+  group_by(month, category) %>%
+  summarise(avg_trade = mean(total, na.rm = TRUE))
+
+ggplot(season_month,
+       aes(month, avg_trade, color = category, group = category)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  labs(
+    title = "Seasonal Pattern of Import and Export",
+    x = "Month",
+    y = "Average Trade Value"
+  ) +
+  theme_minimal()
+```
+
+
+```{r}
+#9 seasonal heatmap
+season_heat <- df_clean %>%
+  mutate(month = factor(month(date), levels = 1:12)) %>%
+  group_by(year, month, category) %>%
+  summarise(total = sum(total, na.rm = TRUE))
+ggplot(season_heat,
+       aes(month, year, fill = total)) +
+  geom_tile() +
+  facet_wrap(~category) +
+  scale_fill_viridis_c() +
+  labs(
+    title = "Seasonal Trade Heatmap",
+    x = "Month",
+    y = "Year"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#10 seasonal ribbon plot
+
+season_ribbon <- df_clean %>%
+  mutate(month = factor(month(date), levels = 1:12, labels = month.abb)) %>%
+  group_by(month, category) %>%
+  summarise(
+    avg_trade = mean(total, na.rm = TRUE),
+    min_trade = min(total, na.rm = TRUE),
+    max_trade = max(total, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ggplot(season_ribbon,
+       aes(x = month, y = avg_trade,
+           color = category, fill = category,
+           group = category)) +
+  geom_ribbon(aes(ymin = min_trade, ymax = max_trade),
+              alpha = 0.15, colour = NA) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  labs(
+    title = "Seasonal Trade Pattern with Variation Range",
+    x = "Month",
+    y = "Average Trade Value"
+  ) +
+  theme_minimal()
+
+```
+
+
+
+
+CDA 
+
+
+1.Import 和 Export 是否显著不同
+2.不同国家的贸易规模是否不同
+3.贸易顺差是否随时间变化
+4.国家之间贸易结构是否不同
+5.Trade values vary significantly across months
+
+
+
+
+```{r}
+ggplot(data, aes(total)) +
+  geom_histogram(bins = 30,
+                 fill = "steelblue") +
+  theme_minimal() +
+  labs(
+    title = "Distribution of Trade Values",
+    x = "Trade Value",
+    y = "Frequency"
+  )
+```
+
+
+
+```{r}
+#H0: Import and export values are the same
+#H1: Import and export values differ
+ggplot(df_clean,
+       aes(category, total, fill = category)) +
+  geom_violin(alpha = 0.6) +
+  geom_boxplot(width = 0.1) +
+  labs(
+    title = "Distribution of Import and Export Values",
+    x = "Trade Category",
+    y = "Trade Value"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+#H0: Trade values are equal across countries
+#H1: Trade values differ across countries
+
+ggplot(df_clean,
+       aes(reorder(country, total), total)) +
+  geom_boxplot(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Trade Value Distribution by Country",
+    x = "Country",
+    y = "Trade Value"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#Trade balance 是否随时间变化
+balance_year <- df_wide %>%
+  group_by(year) %>%
+  summarise(trade_balance = sum(trade_balance, na.rm = TRUE), .groups = "drop")
+
+ggplot(balance_year, aes(x = year, y = trade_balance)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    title = "Trend of Trade Balance Over Time",
+    x = "Year",
+    y = "Trade Balance"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#国家之间贸易结构是否不同
+
+df_wide <- df_wide %>%
+  mutate(export_ratio = output / trade_total)
+
+anova_ratio <- aov(export_ratio ~ country, data = df_wide)
+summary(anova_ratio)
+
+ggplot(df_wide, aes(country, export_ratio)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r}
+#Trade values vary significantly across months
+
+anova_month <- aov(trade_total ~ factor(month), data = df_wide)
+summary(anova_month)
+
+ggplot(df_wide, aes(factor(month), trade_total)) +
+  geom_boxplot()
+```
+
+
+
+
+

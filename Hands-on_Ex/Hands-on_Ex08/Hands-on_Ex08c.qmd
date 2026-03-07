@@ -163,7 +163,7 @@ get.var <- function(vname,df) {
 }
 ```
 
-#### A percentile mapping function 
+#### A percentile mapping function
 
 Next, write a percentile mapping function by using the code chunk below.
 
@@ -186,7 +186,7 @@ percentmap <- function(vnam, df, legtitle=NA, mtitle="Percentile Map"){
 }
 ```
 
-#### Test drive the percentile mapping function 
+#### Test drive the percentile mapping function
 
 To run the function, type the code chunk as shown below.
 
@@ -209,7 +209,7 @@ ggplot(data = NGA_wp,
 
 -   To create a box map, a custom breaks specification will be used. However, there is a complication. The break points for the box map vary depending on whether lower or upper outliers are present.
 
-#### Creating the boxbreaks function 
+#### Creating the boxbreaks function
 
 The code chunk below is an R function that creating break points for a box map.
 
@@ -251,7 +251,7 @@ boxbreaks <- function(v,mult=1.5) {
 }
 ```
 
-#### Creating the get.var function 
+#### Creating the get.var function
 
 The code chunk below is an R function to extract a variable as a vector out of an sf data frame.
 
@@ -273,7 +273,7 @@ get.var <- function(vname,df) {
 }
 ```
 
-#### Test drive the newly created function 
+#### Test drive the newly created function
 
 Let’s test the newly created function
 
