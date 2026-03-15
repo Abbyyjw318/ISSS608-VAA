@@ -1,6 +1,8 @@
 ---
-title: "Exploratory and Confirmatory Analysis of Singapore’s Trade with Key Partners"
+title: "Take-home_Ex02"
+subtitle: "Exploratory and Confirmatory Analysis of Singapore’s Trade with Key Partners"
 author: "WuYanjie"
+date: "2026-03-15"
 ---
 
 # 1 Overview
@@ -288,8 +290,6 @@ ggplot(df_clean,
   theme_minimal()
 ```
 :::
-
-Observation：
 
 Differences in the composition of trade can also be observed. For example, exports appear to dominate Singapore’s trade with Indonesia and Thailand, while trade with countries such as China and Malaysia is more balanced between imports and exports.
 
