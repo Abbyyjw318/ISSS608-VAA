@@ -11,9 +11,24 @@ Therefore, this analysis focuses on these eight countries to explore Singapore�
 
 ## 1.1 Install package
 
+The R packages used in this take-home exercise are:
+
+-   **tidyverse**(i.e. readr, tidyr, dplyr, ggplot2) for performing data science tasks such as importing, tidying, and wrangling data, as well as creating graphics based on The Grammar of Graphics;
+
+-   **readxl** for importing Excel files into R for further data processing and analysis;
+
+-   **lubridate** for handling and manipulating date-time variables, such as extracting years and constructing date objects;
+
+-   **scales** for formatting axis labels in visualisations, including functions for displaying numbers with commas or percentage formats;
+
+-   **knitr** for generating dynamic reports and presenting outputs such as tables and figures in the Quarto document;
+
+-   **ggthemes** for providing additional ggplot2 themes, such as `theme_tufte()`, to improve the visual appearance of charts.
+
+The code chunk below uses the `p_load()` function in the **pacman** package to check and install in the computer.
+
 ```{r}
-pacman::p_load(tidyverse,readxl,corrplot,data.table,lubridate,ggthemes,gridExtra,
-  scales,viridis,knitr,ggridges, patchwork)
+pacman::p_load(tidyverse,readxl,lubridate,scales,knitr,ggthemes)
 ```
 
 # 2 Data
@@ -52,10 +67,9 @@ df_wide <- df_clean %>%
 
 ### 3.1.1 Singapore’s Total Trade with 8 Key Partners Over Time
 
-To provide an overview of Singapore’s trade relationship with its key partners, a line chart was used to visualise the total trade value over time. In this visualisation, the trade values of the eight selected countries were aggregated by month to show the overall trade pattern from 2005 to 2026. 
+To provide an overview of Singapore’s trade relationship with its key partners, a line chart was used to visualise the total trade value over time. In this visualisation, the trade values of the eight selected countries were aggregated by month to show the overall trade pattern from 2005 to 2026.
 
-::: panel-tabset 
-
+::: panel-tabset
 ### Plot
 
 ```{r}
@@ -98,7 +112,6 @@ ggplot(df_total,
   ) +
   theme_minimal()
 ```
-
 :::
 
 The chart shows that total trade generally increased over the study period, although several fluctuations can be observed. A noticeable decline appears around 2008–2009, followed by a recovery and relatively stable growth in later years. From around 2021 onward, the upward trend becomes stronger, with trade reaching its highest levels near 2025–2026.
@@ -818,15 +831,15 @@ The dashboard consists of the following sections:
 
 -   Seasonal Analysis
 
--   Trade Comparison Tests
-
--   Trend and Seasonal Tests
+-   Confirmatory data analysis
 
 These sections allow users to first explore the data visually and then examine the statistical evidence supporting those patterns.
 
 ### 5.3.1 Section One (Overview)
 
 In the Overview section, users are able to obtain a general understanding of Singapore’s overall trade performance. This page provides a summary of the key trade indicators together with the overall trade trend.
+
+![](images/clipboard-3149380388.png)
 
 Users can filter the data by selecting specific countries and adjusting the time period using the year range slider. The slider allows users to drag the bar to select the desired time range.
 
@@ -838,6 +851,8 @@ Below the indicators, line charts are used to show the total trade trend as well
 
 In the Country-Level Analysis section, users are able to explore the differences in trade across Singapore’s major trading partners.
 
+![](images/clipboard-3239261744.png)
+
 Users can select specific countries and adjust the time range using the filter panel. This allows them to compare trade patterns between different countries.
 
 The page includes several charts that show the trade ranking of countries, the structure of imports and exports, and the trade trends of individual countries over time. Through these visualisations, users can identify which countries have the largest trade volumes and observe how trade relationships evolve over time.
@@ -846,24 +861,16 @@ The page includes several charts that show the trade ranking of countries, the s
 
 In the Seasonal Analysis section, users can explore whether trade activities show any seasonal patterns across different months.
 
+![](images/clipboard-3923409119.png)
+
 Users are able to filter the dataset by country and adjust the time range using the year slider. This allows them to observe whether seasonal patterns are consistent across different countries or years.
 
 The charts in this section include a monthly trade trend, a seasonal heatmap, and a variation range plot. These visualisations help users identify months with higher or lower trade activity and observe possible seasonal fluctuations.
 
-### 5.3.4 Section Four (Trade Comparison Tests)
+### 5.3.4 Section Four (Confirmatory data analysis)
 
-In the Trade Comparison Tests section, users are able to view statistical comparisons between different trade categories and countries.
+In the Confirmatory Data Analysis section, users can examine the statistical results that support the patterns observed in the exploratory analysis. This dashboard brings together several visualisations and statistical tests to evaluate differences in trade categories, countries, time trends, and monthly variations.
 
-This page includes distribution charts such as violin plots and boxplots to compare import and export values. These visualisations allow users to observe how the distributions differ between the two categories.
+![](images/clipboard-1738216722.png)
 
-In addition, boxplots are used to compare trade values across different countries. The results of statistical tests are also presented to help users determine whether the differences observed in the charts are statistically significant.
-
-### 5.3.5 Section Five (Trend and Seasonal Tests)
-
-The Trend and Seasonal Tests section focuses on statistical tests related to time trends and monthly differences.
-
-In this page, users can view a scatter plot showing the trend of trade balance over time, together with a regression line that indicates the overall direction of the trend.
-
-Another chart compares trade values across different months using boxplots. These visualisations help users observe whether certain months tend to have higher or lower trade activity.
-
-Statistical results are also presented to examine whether the trend over time and the differences across months are significant.
+The page first compares import and export values using violin plots and boxplots, allowing users to observe how the distributions differ between the two trade categories. Boxplots are also used to compare trade values across different countries, helping users identify whether certain countries have significantly larger trade volumes.In addition, the dashboard includes a scatter plot showing the trend of trade balance over time, together with a regression line that indicates the overall direction of the trend. This helps users assess whether Singapore’s trade balance has changed across the years.
