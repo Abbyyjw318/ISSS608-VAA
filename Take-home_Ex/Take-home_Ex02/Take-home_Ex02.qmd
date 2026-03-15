@@ -11,23 +11,21 @@ The dataset used in this study contains Singapore’s trade values with its majo
 
 Therefore, this analysis focuses on these eight countries to explore Singapore’s strongest trade relationships. The dataset records monthly trade values for each country and categorises them into imports and exports. The data is structured in a long format where each row represents a specific country, month, and trade category.
 
-## 1.1 Install package
+## 1.1 R Package Evaluation
 
-The R packages used in this take-home exercise are:
+Several R packages were considered when developing the visualisations and data processing steps for the proposed Shiny application. Since the application focuses on analysing trade trends and patterns, packages that support data manipulation, visualisation, and date handling were evaluated.
 
--   **tidyverse**(i.e. readr, tidyr, dplyr, ggplot2) for performing data science tasks such as importing, tidying, and wrangling data, as well as creating graphics based on The Grammar of Graphics;
+For data manipulation, both dplyr and data.table can be used to transform and summarise datasets in R. In this project, dplyr (part of the tidyverse ecosystem) was selected because its syntax is more intuitive and integrates well with other tidyverse packages used throughout the analysis. Functions such as mutate(), group_by(), and summarise() make the data preparation process easier to read and maintain.
 
--   **readxl** for importing Excel files into R for further data processing and analysis;
+For data visualisation, several libraries such as ggplot2, plotly, and highcharter were considered. Among these options, ggplot2 was chosen as the primary visualisation library. It provides a flexible grammar-based approach for building statistical graphics and supports a wide range of chart types required in this project, including line charts, boxplots, heatmaps, and violin plots. In addition, ggplot2 integrates well with Shiny applications and allows consistent styling across different charts.
 
--   **lubridate** for handling and manipulating date-time variables, such as extracting years and constructing date objects;
+For handling date variables, both base R functions and the lubridate package can be used. The lubridate package was selected because it simplifies common date operations, such as extracting year and month values and constructing date objects.
 
--   **scales** for formatting axis labels in visualisations, including functions for displaying numbers with commas or percentage formats;
+To import the dataset stored in Excel format, the readxl package was used. This package provides a simple and efficient way to read Excel files directly into R without requiring additional dependencies.
 
--   **knitr** for generating dynamic reports and presenting outputs such as tables and figures in the Quarto document;
+Finally, the scales and ggthemes packages were used to enhance the visual appearance of the charts. The scales package helps format axis labels and numeric values, while ggthemes provides additional themes that improve the clarity and presentation of the visualisations.
 
--   **ggthemes** for providing additional ggplot2 themes, such as `theme_tufte()`, to improve the visual appearance of charts.
-
-The code chunk below uses the `p_load()` function in the **pacman** package to check and install in the computer.
+## 1.2 Install R Package
 
 ```{r}
 pacman::p_load(tidyverse,readxl,lubridate,scales,knitr,ggthemes)

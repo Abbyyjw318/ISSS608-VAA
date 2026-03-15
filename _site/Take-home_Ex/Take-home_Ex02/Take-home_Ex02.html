@@ -233,7 +233,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1 Overview</a>
   <ul class="collapse">
-  <li><a href="#install-package" id="toc-install-package" class="nav-link" data-scroll-target="#install-package">1.1 Install package</a></li>
+  <li><a href="#r-package-evaluation" id="toc-r-package-evaluation" class="nav-link" data-scroll-target="#r-package-evaluation">1.1 R Package Evaluation</a></li>
+  <li><a href="#install-r-package" id="toc-install-r-package" class="nav-link" data-scroll-target="#install-r-package">1.2 Install R Package</a></li>
   </ul></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2 Data</a>
   <ul class="collapse">
@@ -325,18 +326,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>1 Overview</h1>
 <p>The dataset used in this study contains Singapore’s trade values with its major trading partners from January 2005 to January 2026. The original data source provides the top 10 countries for Singapore’s imports and the top 10 countries for Singapore’s exports. By comparing these two lists, eight countries appear in both rankings. These overlapping countries represent Singapore’s most important trading partners, as they are significant in both import and export activities.</p>
 <p>Therefore, this analysis focuses on these eight countries to explore Singapore’s strongest trade relationships. The dataset records monthly trade values for each country and categorises them into imports and exports. The data is structured in a long format where each row represents a specific country, month, and trade category.</p>
-<section id="install-package" class="level2">
-<h2 class="anchored" data-anchor-id="install-package">1.1 Install package</h2>
-<p>The R packages used in this take-home exercise are:</p>
-<ul>
-<li><p><strong>tidyverse</strong>(i.e.&nbsp;readr, tidyr, dplyr, ggplot2) for performing data science tasks such as importing, tidying, and wrangling data, as well as creating graphics based on The Grammar of Graphics;</p></li>
-<li><p><strong>readxl</strong> for importing Excel files into R for further data processing and analysis;</p></li>
-<li><p><strong>lubridate</strong> for handling and manipulating date-time variables, such as extracting years and constructing date objects;</p></li>
-<li><p><strong>scales</strong> for formatting axis labels in visualisations, including functions for displaying numbers with commas or percentage formats;</p></li>
-<li><p><strong>knitr</strong> for generating dynamic reports and presenting outputs such as tables and figures in the Quarto document;</p></li>
-<li><p><strong>ggthemes</strong> for providing additional ggplot2 themes, such as <code>theme_tufte()</code>, to improve the visual appearance of charts.</p></li>
-</ul>
-<p>The code chunk below uses the <code>p_load()</code> function in the <strong>pacman</strong> package to check and install in the computer.</p>
+<section id="r-package-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="r-package-evaluation">1.1 R Package Evaluation</h2>
+<p>Several R packages were considered when developing the visualisations and data processing steps for the proposed Shiny application. Since the application focuses on analysing trade trends and patterns, packages that support data manipulation, visualisation, and date handling were evaluated.</p>
+<p>For data manipulation, both dplyr and data.table can be used to transform and summarise datasets in R. In this project, dplyr (part of the tidyverse ecosystem) was selected because its syntax is more intuitive and integrates well with other tidyverse packages used throughout the analysis. Functions such as mutate(), group_by(), and summarise() make the data preparation process easier to read and maintain.</p>
+<p>For data visualisation, several libraries such as ggplot2, plotly, and highcharter were considered. Among these options, ggplot2 was chosen as the primary visualisation library. It provides a flexible grammar-based approach for building statistical graphics and supports a wide range of chart types required in this project, including line charts, boxplots, heatmaps, and violin plots. In addition, ggplot2 integrates well with Shiny applications and allows consistent styling across different charts.</p>
+<p>For handling date variables, both base R functions and the lubridate package can be used. The lubridate package was selected because it simplifies common date operations, such as extracting year and month values and constructing date objects.</p>
+<p>To import the dataset stored in Excel format, the readxl package was used. This package provides a simple and efficient way to read Excel files directly into R without requiring additional dependencies.</p>
+<p>Finally, the scales and ggthemes packages were used to enhance the visual appearance of the charts. The scales package helps format axis labels and numeric values, while ggthemes provides additional themes that improve the clarity and presentation of the visualisations.</p>
+</section>
+<section id="install-r-package" class="level2">
+<h2 class="anchored" data-anchor-id="install-r-package">1.2 Install R Package</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,readxl,lubridate,scales,knitr,ggthemes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
