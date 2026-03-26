@@ -254,17 +254,7 @@ sales_data %>%
 
 ## Interactive Information Dashboard Design: reactable and reactablefmtr methods
 
-This section is to create interactive information dashboard by using reactable and reactablefmtr packages. In order to build an interactive sparklines, first install dataui R package by using the code chunk below.
-
-```{r}
-remotes::install_github("kcuilla/reactablefmtr")
-```
-
-```{r}
-remotes::install_github("timelyportfolio/dataui")
-```
-
-Next, load the package onto R environment by using the code chunk below.
+This section is to create interactive information dashboard by using reactable and reactablefmtr packages. In order to build an interactive sparklines, first load the package onto R environment by using the code chunk below.
 
 ```{r}
 library(dataui)
@@ -286,11 +276,12 @@ reactable(
   columns = list(
     Product = colDef(maxWidth = 200),
     `Monthly Sales` = colDef(
-      cell = function(value) reactablefmtr::react_sparkline(value)
+      cell = react_sparkline(report)
     )
   )
 )
 ```
+
 
 ### Changing the pagesize
 
@@ -303,11 +294,12 @@ reactable(
   columns = list(
     Product = colDef(maxWidth = 200),
     `Monthly Sales` = colDef(
-      cell = function(value) reactablefmtr::react_sparkline(value)
+      cell = react_sparkline(report)
     )
   )
 )
 ```
+
 
 ### Adding points and labels
 
